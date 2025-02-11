@@ -1,14 +1,18 @@
-<?php
-$servername = "localhost"; // Use 'localhost' if the database is on the same server
-$username = "jastiebl"; // Replace with your MariaDB username
-$password = "OLE_miss2024"; // Replace with your MariaDB password
-$dbname = "jastiebl"; // The name of your database
+$host = 'localhost';
+$dbname = 'ITdescription';
+$user = 'postgres';  // Use your PostgreSQL username
+$pass = 'Butterfly!17';
+$port = 5432;  // PostgreSQL default port
+$dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    echo "✅ Successfully connected to PostgreSQL!";
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
-?>
